@@ -28,7 +28,7 @@ int main(void)
 		{
 			num_words++;
 			printf("%s", word);
-			word = strtok(linestrCopy, delim);
+			word = strtok(NULL, delim);
 		}
 		printf("%d", num_words);
 		if (num_char == -1)
