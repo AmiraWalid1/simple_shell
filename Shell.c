@@ -27,9 +27,10 @@ int main(void)
 		while(word != NULL)
 		{
 			num_words++;
-			printf("%s", word);
+			// printf("%s", word);
 			word = strtok(NULL, delim);
 		}
+		num_words++;
 		printf("%d", num_words);
 		if (num_char == -1)
 		{
