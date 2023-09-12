@@ -14,7 +14,7 @@ int main(void)
 	char *linestr = NULL, *linestrCopy = NULL, *word;
 	size_t n = 0;
 	int num_char, num_words = 0;
-	char delim = ' ';
+	const char *delim = ' ';
 
 
 	while (1)
@@ -30,7 +30,7 @@ int main(void)
 			printf("%s", word);
 			word = strtok(linestrCopy, delim);
 		}
-		printf("%s", num_words);
+		printf("%d", num_words);
 		if (num_char == -1)
 		{
 			break;
