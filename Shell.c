@@ -11,9 +11,9 @@
 int main(void)
 {
 	char prompat[] = "shell $ ";
-	char *linestr = NULL, *linestrCopy = NULL, *word;
+	char *linestr = NULL, *linestrCopy = NULL, *word, *list_of_words;
 	size_t n = 0;
-	int num_char, num_words = 0;
+	int num_char, num_words = 0, i;
 	const char *delim = " ";
 
 
@@ -27,15 +27,23 @@ int main(void)
 		while(word != NULL)
 		{
 			num_words++;
-			// printf("%s", word);
 			word = strtok(NULL, delim);
 		}
 		num_words++;
-		printf("%d", num_words);
+		list_of_words = malloc(sizeof(char *) * num_words);
+		word = strtok(linestr, delim);
+		for (i = 0; word != 0; i++)
+		{
+			list_of_words[i] = malloc(sizeof(char) * strlen(word));
+			strcpy(list_of_words[i], word);
+			word = strtok(NULL, delim);
+		}
+		list_of_words[i] = NULL;
 		if (num_char == -1)
 		{
 			break;
 		}
+		free(linestr);
 	}
 	return (0);
 }
