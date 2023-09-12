@@ -23,7 +23,7 @@ int main(void)
 		num_char = getline(&linestr, &n, stdin);
 		linestrCopy = malloc(sizeof(char) * num_char);
 		strcpy(linestrCopy, linestr);
-		printf("%s", linest);
+		printf("%s", linestr);
 		if (num_char == -1)
 		{
 			break;
