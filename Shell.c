@@ -11,9 +11,9 @@
 int main(void)
 {
 	char prompat[] = "shell $ ";
-	char *linestr = NULL, *linestrCopy = NULL;
+	char *linestr = NULL, *linestrCopy = NULL, *word;
 	size_t n = 0;
-	int num_char;
+	int num_char, num_words = 0;
 	char delim = ' ';
 
 
@@ -23,7 +23,14 @@ int main(void)
 		num_char = getline(&linestr, &n, stdin);
 		linestrCopy = malloc(sizeof(char) * num_char);
 		strcpy(linestrCopy, linestr);
-		printf("%s", linestrCopy);
+		word = strtok(linestrCopy, delim);
+		while(word != NULL)
+		{
+			num_words++;
+			printf("%s", word);
+			word = strtok(linestrCopy, delim);
+		}
+		printf("%s", num_words);
 		if (num_char == -1)
 		{
 			break;
