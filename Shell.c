@@ -14,7 +14,7 @@ int main(void)
 	char *linestr = NULL, *linestrCopy = NULL, *word;
 	size_t n = 0;
 	int num_char, num_words = 0;
-	const char *delim = ' ';
+	const char *delim = " ";
 
 
 	while (1)
