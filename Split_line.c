@@ -1,4 +1,11 @@
 #include "shell.h"
+/**
+ * Split_line - split line of string
+ * @linestr: line string
+ * @num_char: num of charcter of line string
+ *
+ * Return: array contain list_of_words
+*/
 char **Split_line(char *linestr, int num_char)
 {
 	char *linestrCopy = NULL, *word, **list_of_words;
@@ -38,6 +45,6 @@ char **Split_line(char *linestr, int num_char)
 		word = strtok(NULL, delim);
 	}
 	list_of_words[i] = NULL;
-	
+	free(linestrCopy);
 	return (list_of_words);
 }

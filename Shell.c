@@ -19,11 +19,11 @@ int main(void)
 		num_char = getline(&linestr, &n, stdin);
 		if (num_char == -1)
 		{
+			free(linestr);
 			return (-1);
 		}
 		list_of_words = Split_line(linestr, num_char);
 		free_grid(list_of_words);
-		
 	}
 	return (0);
 }
