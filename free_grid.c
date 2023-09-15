@@ -10,6 +10,10 @@ void free_grid(char **grid)
 {
 	int i;
 
+	if (grid == NULL)
+	{
+		return;
+	}
 	for (i = 0 ; grid[i] ; i++)
 	{
 		free(grid[i]);
