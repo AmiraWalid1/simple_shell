@@ -9,21 +9,22 @@
 int main(void)
 {
 	char prompat[] = "shell $ ";
-	char *linestr = NULL, **list_of_words;
+	char *linestr = NULL, **argv;
 	size_t n = 0;
-	int num_char;
+	int num_char_readed;
 
 	while (1)
 	{
 		printf("%s", prompat);
-		num_char = getline(&linestr, &n, stdin);
-		if (num_char == -1)
+		num_char_readed = getline(&linestr, &n, stdin);
+		if (num_char_readed == -1)
 		{
 			free(linestr);
 			return (-1);
 		}
-		list_of_words = Split_line(linestr, num_char);
-		free_grid(list_of_words);
+		argv = Split_line(linestr, num_char_readed);
+		execmd(argv);
+		free_grid(argv);
 	}
 	return (0);
 }
