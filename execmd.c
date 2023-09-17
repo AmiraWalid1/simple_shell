@@ -7,16 +7,17 @@
  */
 void execmd(char **argv)
 {
-	char *pathname = NULL;
+	char *command = NULL, *actual_pathname = NULL;
 	int id = fork();
 
 	if (argv)
 	{
-		pathname = argv[0];
+		command = argv[0];
+		actual_pathname = get_location(command);
 	}
 	if (id == 0)
 	{
-		if (execve(pathname, argv, NULL) == -1)
+		if (execve(actual_pathname, argv, NULL) == -1)
 		{
 			perror("./shell");
 		}
@@ -27,6 +28,6 @@ void execmd(char **argv)
 	}
 	else
 	{
-		wait();
+		wait(NULL);
 	}
 }
