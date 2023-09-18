@@ -1,12 +1,14 @@
 #include "shell.h"
 /**
  * main - Entry point
- *
+ * @ac: argument number
+ * @av: argument value
+ * @env: environment
  * Description: Simple shell
  *
  * Return: Always 0 (Success)
  */
-int main(void)
+int main(int ac, char **av, char **env)
 {
 	char prompat[] = "shell $ ";
 	char *linestr = NULL, **argv;
@@ -29,7 +31,14 @@ int main(void)
 			free_grid(argv);
 			exit(EXIT_SUCCESS);
 		}
-		execmd(argv);
+		if (strcmp(argv[0], "env") == 0)
+		{
+			print_env(env);
+		}
+		else
+		{
+			execmd(argv);
+		}
 		free_grid(argv);
 	}
 	return (0);

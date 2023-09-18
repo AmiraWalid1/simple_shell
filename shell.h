@@ -16,5 +16,6 @@ char **Split_line(char *linestr, int num_char);
 void execmd(char **argv);
 char *get_location(char *command);
 char *_strdup(char *src);
+void print_env(char **envp);
 
 #endif /*SHELL_H*/
