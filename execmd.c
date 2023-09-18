@@ -35,6 +35,7 @@ void execmd(char **argv)
 			else
 			{
 				wait(NULL);
+				free(actual_pathname);
 			}
 		}
 		else
