@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <signal.h>
 
 void free_grid(char **grid);
 char **Split_line(char *linestr, int num_char);
