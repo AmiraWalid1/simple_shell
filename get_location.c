@@ -18,13 +18,7 @@ char *get_location(char *command)
 	}
 	command_len = strlen(command);
 	path = getenv("PATH");
-	path_copy = malloc(strlen(path));
-	if (path_copy == NULL)
-	{
-		perror("Memory allocated error");
-		exit(1);
-	}
-	strcpy(path_copy, path);
+	path_copy = _strdup(path);
 	path_token = strtok(path_copy, delmiter);
 	while (path_token != NULL)
 	{
@@ -33,8 +27,7 @@ char *get_location(char *command)
 		if (path_file == NULL)
 		{
 			free(path_copy);
-			perror("Memory allocated error");
-			exit(1);
+			perror("Memory allocated error"), exit(1);
 		}
 		strcpy(path_file, path_token);
 		strcat(path_file, "/");
@@ -53,5 +46,22 @@ char *get_location(char *command)
 	}
 	free(path_copy);
 	return (NULL);
+}
+/**
+ * _strdup - function returns a pointer to a new string
+ * which is a duplicate of the string src.
+ * @src: string
+ *
+ * Return: pointer to string
+*/
+char *_strdup(char *src)
+{
+	char *dst = malloc(strlen(src) + 1);
 
+	if (dst == NULL)
+	{
+		perror("Memory allocated error"), exit(1);
+	}
+	strcpy(dst, src);
+	return (dst);
 }

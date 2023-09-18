@@ -15,8 +15,7 @@ char **Split_line(char *linestr, int num_char_readed)
 	linestrCopy = malloc(sizeof(char) * num_char_readed);
 	if (linestrCopy == NULL)
 	{
-		perror("Memory allocated error");
-		exit(1);
+		perror("Memory allocated error"), exit(1);
 	}
 	strcpy(linestrCopy, linestr);
 	word = strtok(linestrCopy, delim);
@@ -30,8 +29,7 @@ char **Split_line(char *linestr, int num_char_readed)
 	if (argv == NULL)
 	{
 		free(linestrCopy);
-		perror("Memory allocated error");
-		exit(1);
+		perror("Memory allocated error"), exit(1);
 	}
 	word = strtok(linestr, delim);
 	for (i = 0; word != 0; i++)

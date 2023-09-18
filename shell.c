@@ -23,6 +23,12 @@ int main(void)
 			return (-1);
 		}
 		argv = Split_line(linestr, num_char_readed);
+		if (strcmp(argv[0], "exit") == 0)
+		{
+			free(linestr);
+			free_grid(argv);
+			exit(EXIT_SUCCESS);
+		}
 		execmd(argv);
 		free_grid(argv);
 	}

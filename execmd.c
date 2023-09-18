@@ -13,10 +13,6 @@ void execmd(char **argv)
 	if (argv)
 	{
 		command = argv[0];
-		if (strcmp(command, "exit") == 0)
-		{
-			exit(EXIT_SUCCESS);
-		}
 		actual_pathname = get_location(command);
 		if (actual_pathname)
 		{

@@ -15,5 +15,6 @@ void free_grid(char **grid);
 char **Split_line(char *linestr, int num_char);
 void execmd(char **argv);
 char *get_location(char *command);
+char *_strdup(char *src);
+
 #endif /*SHELL_H*/
- 
