@@ -26,7 +26,10 @@ void execmd(char **argv)
 			}
 			else if (id < 0)
 			{
+				free_grid(argv);
+				free(actual_pathname);
 				perror("./shell");
+				exit(EXIT_FAILURE);
 			}
 			else
 			{

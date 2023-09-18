@@ -56,8 +56,13 @@ char *get_location(char *command)
 */
 char *_strdup(char *src)
 {
-	char *dst = malloc(strlen(src) + 1);
+	char *dst;
 
+	if (src == NULL)
+	{
+		return (NULL);
+	}
+	dst = malloc(strlen(src) + 1);
 	if (dst == NULL)
 	{
 		perror("Memory allocated error"), exit(1);
