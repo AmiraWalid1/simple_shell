@@ -15,6 +15,7 @@ int main(int ac, char **av, char **env)
 	size_t n = 0;
 	int num_char_readed;
 
+	(void)ac, (void)av;
 	while (1)
 	{
 		printf("%s", prompat);
