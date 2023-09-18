@@ -19,12 +19,23 @@ char *get_location(char *command)
 	command_len = strlen(command);
 	path = getenv("PATH");
 	path_copy = malloc(strlen(path));
+	if (path_copy == NULL)
+	{
+		perror("Memory allocated error");
+		exit(1);
+	}
 	strcpy(path_copy, path);
 	path_token = strtok(path_copy, delmiter);
 	while (path_token != NULL)
 	{
 		path_token_len = strlen(path_token);
 		path_file = malloc(path_token_len + command_len + 2);
+		if (path_file == NULL)
+		{
+			free(path_copy);
+			perror("Memory allocated error");
+			exit(1);
+		}
 		strcpy(path_file, path_token);
 		strcat(path_file, "/");
 		strcat(path_file, command);
