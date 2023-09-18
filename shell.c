@@ -15,6 +15,7 @@ int main(void)
 
 	while (1)
 	{
+
 		printf("%s", prompat);
 		num_char_readed = getline(&linestr, &n, stdin);
 		if (num_char_readed == -1)

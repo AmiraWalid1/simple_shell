@@ -4,17 +4,35 @@
  * @argv: argument value
  *
  * Return: void
-*/
+ */
 void execmd(char **argv)
 {
-	char *pathname = NULL;
+	char *command = NULL, *actual_pathname = NULL;
+	int id = fork();
 
+	if (argv[0] == "exit")
+	{
+		exit(0);
+	}
 	if (argv)
 	{
-		pathname = argv[0];
+		command = argv[0];
+		actual_pathname = get_location(command);
 	}
-	if (execve(pathname, argv, NULL) == -1)
+	if (id == 0)
+	{
+		if (execve(actual_pathname, argv, NULL) == -1)
+		{
+			perror("./shell");
+		}
+	}
+	else if (id < 0)
 	{
 		perror("./shell");
 	}
+	else
+	{
+		wait(NULL);
+	}
 }
+
