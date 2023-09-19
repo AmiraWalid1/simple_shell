@@ -8,31 +8,43 @@
 void execmd(char **argv)
 {
 	char *command = NULL, *actual_pathname = NULL;
-	int id = fork();
+	pid_t id;
 
-	if (argv[0] == "exit")
-	{
-		exit(0);
-	}
 	if (argv)
 	{
 		command = argv[0];
 		actual_pathname = get_location(command);
-	}
-	if (id == 0)
-	{
-		if (execve(actual_pathname, argv, NULL) == -1)
+		if (actual_pathname)
+		{
+			id = fork();
+			if (id == 0)
+			{
+				if (execve(actual_pathname, argv, NULL) == -1)
+				{
+					perror("./shell");
+				}
+			}
+			else if (id < 0)
+			{
+				free_grid(argv);
+				free(actual_pathname);
+				perror("./shell");
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				wait(NULL);
+				free(actual_pathname);
+			}
+		}
+		else
 		{
 			perror("./shell");
 		}
 	}
-	else if (id < 0)
-	{
-		perror("./shell");
-	}
 	else
 	{
-		wait(NULL);
+		perror("./shell");
 	}
 }
 
