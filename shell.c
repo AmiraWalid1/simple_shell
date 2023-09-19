@@ -13,7 +13,7 @@ int main(int ac, char **av, char **env)
 	char prompat[] = "shell $ ";
 	char *linestr = NULL, **argv;
 	size_t n = 0;
-	int num_char_readed;
+	int num_char_readed, ex_arg = EXIT_SUCCESS;
 
 	(void)ac, (void)av;
 	while (1)
@@ -27,10 +27,12 @@ int main(int ac, char **av, char **env)
 		}
 		argv = Split_line(linestr, num_char_readed);
 		if (strcmp(argv[0], "exit") == 0)
-		{
+		{	
+			if (argv[1] != NULL)
+				ex_arg = atoi(argv[1]);
 			free(linestr);
 			free_grid(argv);
-			exit(EXIT_SUCCESS);
+			exit(ex_arg);
 		}
 		if (strcmp(argv[0], "env") == 0)
 		{
