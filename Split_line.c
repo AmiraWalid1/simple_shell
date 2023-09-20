@@ -31,10 +31,11 @@ char **Split_line(char *linestr, int num_char_readed)
 		free(linestrCopy);
 		perror("Memory allocated error"), exit(1);
 	}
-	word = strtok(linestr, delim);
+	strcpy(linestrCopy, linestr);
+	word = strtok(linestrCopy, delim);
 	for (i = 0; word != 0; i++)
 	{
-		argv[i] = malloc(sizeof(char) * strlen(word));
+		argv[i] = malloc(sizeof(char) * strlen(word) + 1);
 		if (argv[i] == NULL)
 		{
 			free(linestrCopy);
