@@ -38,7 +38,7 @@ int main(int ac, char **av, char **env)
 		if (num_char_readed == -1)
 		{
 			free(linestr);
-			return (-1);
+			break;
 		}
 		if (num_char_readed == 1)
 		{
