@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <ctype.h>
 
 
 void free_grid(char **grid);
@@ -20,4 +21,5 @@ char *_strdup(char *src);
 void print_env(char **envp);
 void signal_handler(int sig);
 int increase_command_num(void);
+int isNumber(char *str);
 #endif /*SHELL_H*/
