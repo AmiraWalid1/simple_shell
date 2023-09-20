@@ -25,6 +25,10 @@ int main(int ac, char **av, char **env)
 			free(linestr);
 			return (-1);
 		}
+		if (num_char_readed == 1)
+		{
+			continue;
+		}
 		argv = Split_line(linestr, num_char_readed);
 		if (strcmp(argv[0], "exit") == 0)
 		{
