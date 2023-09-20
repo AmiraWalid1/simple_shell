@@ -14,7 +14,7 @@
 
 void free_grid(char **grid);
 char **Split_line(char *linestr, int num_char);
-void execmd(char **, int command_num);
+void execmd(char **, int command_num, char **env);
 char *get_location(char *command);
 char *_strdup(char *src);
 void print_env(char **envp);

@@ -57,7 +57,7 @@ int main(int ac, char **av, char **env)
 		if (strcmp(argv[0], "env") == 0)
 			print_env(env);
 		else
-			execmd(argv, command_num);
+			execmd(argv, command_num, env);
 		free_grid(argv);
 	}
 	return (0);

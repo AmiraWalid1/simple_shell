@@ -3,10 +3,11 @@
  * execmd - execute the command with execve
  * @argv: argument value
  * @command_num: number of running command
+ * @env: environment
  *
  * Return: void
  */
-void execmd(char **argv, int command_num)
+void execmd(char **argv, int command_num, char **env)
 {
 	char *command = NULL, *actual_pathname = NULL;
 	pid_t id;
@@ -20,7 +21,7 @@ void execmd(char **argv, int command_num)
 			id = fork();
 			if (id == 0)
 			{
-				if (execve(actual_pathname, argv, NULL) == -1)
+				if (execve(actual_pathname, argv, env) == -1)
 				{
 					perror("./shell");
 				}
