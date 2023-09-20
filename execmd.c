@@ -7,43 +7,31 @@
  */
 void execmd(char **argv)
 {
-	char *command = NULL, *actual_pathname = NULL;
-	pid_t id;
+	char *pathname = NULL;
+	int id = fork(), wpid, status;
 
 	if (argv)
 	{
-		command = argv[0];
-		actual_pathname = get_location(command);
-		if (actual_pathname)
+		if (argv[0] == "exit")
 		{
-			id = fork();
-			if (id == 0)
-			{
-				if (execve(actual_pathname, argv, NULL) == -1)
-				{
-					perror("./shell");
-				}
-			}
-			else if (id < 0)
-			{
-				free_grid(argv);
-				free(actual_pathname);
-				perror("./shell");
-				exit(EXIT_FAILURE);
-			}
-			else
-			{
-				wait(NULL);
-				if (command != actual_pathname)
-				{
-					free(actual_pathname);
-				}
-			}
+			exit(0);
 		}
-		else
-			printf("./shell: %s: command not found\n", command);
+		pathname = argv[0];
+	}
+	if (id == 0)
+	{
+		if (execve(pathname, argv, NULL) == -1)
+		{
+			perror("./shell");
+		}
+	}
+	else if (id < 0)
+	{
+		perror("./shell");
 	}
 	else
-		perror("./shell");
+	{
+		wait(NULL );
+	}
 }
 
