@@ -42,7 +42,7 @@ void execmd(char **argv)
 		}
 		else
 		{
-			perror("./shell");
+			printf("./shell: %s: command not found\n", command);
 		}
 	}
 	else
