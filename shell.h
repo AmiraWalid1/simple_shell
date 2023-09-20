@@ -17,5 +17,5 @@ void execmd(char **argv);
 char *get_location(char *command);
 char *_strdup(char *src);
 void print_env(char **envp);
-
+void signal_handler(int sig);
 #endif /*SHELL_H*/

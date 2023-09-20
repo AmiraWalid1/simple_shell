@@ -1,5 +1,16 @@
 #include "shell.h"
 /**
+ * signal_handler - handle signal
+ * @sig: signal number
+ *
+ * Return: void
+*/
+void signal_handler(int sig)
+{
+	(void)sig;
+	write(STDOUT_FILENO, "\n$ ", 3);
+}
+/**
  * main - Entry point
  * @ac: argument number
  * @av: argument value
@@ -10,7 +21,7 @@
  */
 int main(int ac, char **av, char **env)
 {
-	char prompat[] = "shell $ ";
+	char prompat[] = "$ ";
 	char *linestr = NULL, **argv;
 	size_t n = 0;
 	int num_char_readed, ex_arg = EXIT_SUCCESS;
@@ -18,7 +29,11 @@ int main(int ac, char **av, char **env)
 	(void)ac, (void)av;
 	while (1)
 	{
-		printf("%s", prompat);
+		if (isatty(STDIN_FILENO))
+		{
+			printf("%s", prompat);
+		}
+		signal(SIGINT, signal_handler);
 		num_char_readed = getline(&linestr, &n, stdin);
 		if (num_char_readed == -1)
 		{
@@ -39,13 +54,9 @@ int main(int ac, char **av, char **env)
 			exit(ex_arg);
 		}
 		if (strcmp(argv[0], "env") == 0)
-		{
 			print_env(env);
-		}
 		else
-		{
 			execmd(argv);
-		}
 		free_grid(argv);
 	}
 	return (0);
