@@ -40,12 +40,12 @@ int main(int ac, char **av, char **env)
 			free(linestr);
 			break;
 		}
+		command_num = increase_command_num();
 		if (num_char_readed == 1)
 		{
 			continue;
 		}
-		argv = Split_line(linestr, num_char_readed);
-		command_num = increase_command_num();
+		argv = Split_line(linestr);
 		if (strcmp(argv[0], "exit") == 0)
 		{
 			if (argv[1] != NULL)

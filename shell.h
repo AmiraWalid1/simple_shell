@@ -13,7 +13,7 @@
 
 
 void free_grid(char **grid);
-char **Split_line(char *linestr, int num_char);
+char **Split_line(char *linestr);
 void execmd(char **, int command_num, char **env);
 char *get_location(char *command);
 char *_strdup(char *src);
