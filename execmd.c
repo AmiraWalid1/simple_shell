@@ -41,7 +41,7 @@ void execmd(char **argv)
 			}
 		}
 		else
-			printf("./shell: %s: command not found\n", command);
+			fprintf(stderr, "Command '%s' not found\n", command);
 	}
 	else
 		perror("./shell");
