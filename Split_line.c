@@ -12,7 +12,7 @@ char **Split_line(char *linestr, int num_char_readed)
 	int num_words = 0, i;
 	const char *delim = " \n";
 
-	linestrCopy = malloc(sizeof(char) * num_char_readed);
+	linestrCopy = malloc(sizeof(char) * num_char_readed + 1);
 	if (linestrCopy == NULL)
 	{
 		perror("Memory allocated error"), exit(1);
@@ -29,6 +29,12 @@ char **Split_line(char *linestr, int num_char_readed)
 	if (argv == NULL)
 	{
 		free(linestrCopy);
+		perror("Memory allocated error"), exit(1);
+	}
+	free(linestrCopy);
+	linestrCopy = malloc(sizeof(char) * num_char_readed + 1);
+	if (linestrCopy == NULL)
+	{
 		perror("Memory allocated error"), exit(1);
 	}
 	strcpy(linestrCopy, linestr);
