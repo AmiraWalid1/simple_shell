@@ -43,7 +43,7 @@ void execmd(char **argv, int command_num, char **env)
 			}
 		}
 		else
-			fprintf(stderr, "sh: %d: %s: not found\n", command_num, command);
+			fprintf(stderr, "./hsh: %d: %s: not found\n", command_num, command);
 	}
 	else
 		perror("./shell");
