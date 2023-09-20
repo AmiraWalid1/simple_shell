@@ -38,14 +38,14 @@ int main(int ac, char **av, char **env)
 		if (num_char_readed == -1)
 		{
 			free(linestr);
-			return (-1);
+			break;
 		}
+		command_num = increase_command_num();
 		if (num_char_readed == 1)
 		{
 			continue;
 		}
-		argv = Split_line(linestr, num_char_readed);
-		command_num = increase_command_num();
+		argv = Split_line(linestr);
 		if (strcmp(argv[0], "exit") == 0)
 		{
 			if (argv[1] != NULL)
@@ -57,7 +57,7 @@ int main(int ac, char **av, char **env)
 		if (strcmp(argv[0], "env") == 0)
 			print_env(env);
 		else
-			execmd(argv, command_num);
+			execmd(argv, command_num, env);
 		free_grid(argv);
 	}
 	return (0);

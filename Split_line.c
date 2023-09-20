@@ -2,22 +2,16 @@
 /**
  * Split_line - split line of string
  * @linestr: line string
- * @num_char_readed: num of charcter of line string
  *
  * Return: array contain list_of_words
 */
-char **Split_line(char *linestr, int num_char_readed)
+char **Split_line(char *linestr)
 {
 	char *linestrCopy = NULL, *word, **argv;
 	int num_words = 0, i;
 	const char *delim = " \n";
 
-	linestrCopy = malloc(sizeof(char) * num_char_readed);
-	if (linestrCopy == NULL)
-	{
-		perror("Memory allocated error"), exit(1);
-	}
-	strcpy(linestrCopy, linestr);
+	linestrCopy = _strdup(linestr);
 	word = strtok(linestrCopy, delim);
 	while (word != NULL)
 	{
@@ -31,10 +25,12 @@ char **Split_line(char *linestr, int num_char_readed)
 		free(linestrCopy);
 		perror("Memory allocated error"), exit(1);
 	}
-	word = strtok(linestr, delim);
+	free(linestrCopy);
+	linestrCopy = _strdup(linestr);
+	word = strtok(linestrCopy, delim);
 	for (i = 0; word != 0; i++)
 	{
-		argv[i] = malloc(sizeof(char) * strlen(word));
+		argv[i] = malloc(sizeof(char) * strlen(word) + 1);
 		if (argv[i] == NULL)
 		{
 			free(linestrCopy);
