@@ -2,10 +2,11 @@
 /**
  * execmd - execute the command with execve
  * @argv: argument value
+ * @command_num: number of running command
  *
  * Return: void
  */
-void execmd(char **argv)
+void execmd(char **argv, int command_num)
 {
 	char *command = NULL, *actual_pathname = NULL;
 	pid_t id;
@@ -41,7 +42,7 @@ void execmd(char **argv)
 			}
 		}
 		else
-			fprintf(stderr, "%s: command not found\n", command);
+			fprintf(stderr, "sh: %d: %s: not found\n", command_num, command);
 	}
 	else
 		perror("./shell");

@@ -11,11 +11,13 @@
 #include <sys/stat.h>
 #include <signal.h>
 
+
 void free_grid(char **grid);
 char **Split_line(char *linestr, int num_char);
-void execmd(char **argv);
+void execmd(char **, int command_num);
 char *get_location(char *command);
 char *_strdup(char *src);
 void print_env(char **envp);
 void signal_handler(int sig);
+int increase_command_num(void);
 #endif /*SHELL_H*/
