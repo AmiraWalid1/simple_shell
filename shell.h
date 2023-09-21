@@ -19,7 +19,6 @@ char *get_location(char *command);
 char *_strdup(char *src);
 void print_env(char **envp);
 void signal_handler(int sig);
-void increase_command_num(void);
 int command_num(void);
 int isNumber(char *str);
 int exit_fun(char **argv, char *linestr);

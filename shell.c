@@ -41,7 +41,7 @@ int main(int ac, char **av, char **env)
 			free(linestr);
 			break;
 		}
-		increase_command_num();
+		num_command++;
 		if (num_char_readed == 1)
 		{
 			continue;
@@ -55,15 +55,7 @@ int main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-/**
- * increase_command_num - increase number of command
- *
- * Return: void
-*/
-void increase_command_num(void)
-{
-	num_command++;
-}
+
 /**
  * command_num - return num of command running
  *
