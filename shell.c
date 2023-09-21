@@ -24,7 +24,7 @@ int main(int ac, char **av, char **env)
 	char prompat[] = "$ ";
 	char *linestr = NULL, **argv;
 	size_t n = 0;
-	int num_char_readed, ex_arg = EXIT_SUCCESS, command_num;
+	int num_char_readed, command_num;
 
 	(void)ac, (void)av;
 	while (1)
@@ -46,18 +46,10 @@ int main(int ac, char **av, char **env)
 			continue;
 		}
 		argv = Split_line(linestr);
-		if (strcmp(argv[0], "exit") == 0)
-		{
-			if (argv[1] != NULL && isNumber(argv[1]))
-				ex_arg = atoi(argv[1]);
-			free(linestr);
-			free_grid(argv);
-			exit(ex_arg);
-		}
 		if (strcmp(argv[0], "env") == 0)
 			print_env(env);
 		else
-			execmd(argv, command_num, env);
+			execmd(argv, command_num, env, linestr);
 		free_grid(argv);
 	}
 	return (0);

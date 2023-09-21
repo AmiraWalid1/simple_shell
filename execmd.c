@@ -4,10 +4,13 @@
  * @argv: argument value
  * @command_num: number of running command
  * @env: environment
+ * @linestr: line string
  *
  * Return: void
  */
-void execmd(char **argv, int command_num, char **env)
+
+
+void execmd(char **argv, int command_num, char **env, char *linestr)
 {
 	char *command = NULL, *actual_pathname = NULL;
 	pid_t id;
@@ -15,6 +18,8 @@ void execmd(char **argv, int command_num, char **env)
 	if (argv)
 	{
 		command = argv[0];
+		if (is_buildin_command(argv, command_num, linestr) == 0)
+			return;
 		actual_pathname = get_location(command);
 		if (actual_pathname)
 		{
@@ -47,4 +52,32 @@ void execmd(char **argv, int command_num, char **env)
 	}
 	else
 		perror("./shell");
+}
+/**
+ * is_buildin_command - check if command is buildin or not
+ * @argv: argument value
+ * @command_num: command_num
+ * @linestr: linestr pointer
+ *
+ * Return: (0)sucess | (1)failed
+ */
+int is_buildin_command(char **argv, int command_num, char *linestr)
+{
+	int numOFbuildin, i;
+	char *buildin_command[] = {
+		"exit"
+	};
+	int (*buildin_fun[]) (char **, int, char *) = {
+		&exit_fun
+	};
+	numOFbuildin = sizeof(buildin_command) / sizeof(char *);
+	for (i = 0 ; i < numOFbuildin ; i++)
+	{
+		if (strcmp(argv[0], buildin_command[i]) == 0)
+		{
+			(*buildin_fun[i])(argv, command_num, linestr);
+			return (0);
+		}
+	}
+	return (1);
 }
