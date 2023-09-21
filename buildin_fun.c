@@ -2,12 +2,11 @@
 /**
  * exit_fun - handle exit function
  * @argv: argument value
- * @command_num: command_num
  * @linestr: linestr pointer
  *
  * Return: (1)failed | exit if success
 */
-int exit_fun(char **argv, int command_num, char *linestr)
+int exit_fun(char **argv, char *linestr)
 {
 	int ex_arg = EXIT_SUCCESS;
 
@@ -21,7 +20,7 @@ int exit_fun(char **argv, int command_num, char *linestr)
 			}
 			else
 			{
-				fprintf(stderr, "./hsh: %d: %s: ", command_num, argv[0]);
+				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
 				fprintf(stderr, "Illegal number: %s\n", argv[1]);
 				return (1);
 			}
