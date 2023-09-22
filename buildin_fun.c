@@ -22,7 +22,7 @@ void exit_fun(char **argv, char *linestr)
 			{
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
 				fprintf(stderr, "Illegal number: %s\n", argv[1]);
-				return;
+				ex_arg = 2;
 			}
 		}
 		free(linestr);
