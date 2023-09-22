@@ -46,36 +46,33 @@ void cd_fun(char **argv, char *linestr)
 	(void)linestr;
 	if (argv)
 	{
-		if (argv[1] == NULL)
+		if (argv[1] == NULL || strcmp(argv[1], "~") == 0)
 		{
-			if (chdir("/root/") != 0)
+			if (chdir(getenv("HOME")) != 0)
 			{
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-				fprintf(stderr, "can't cd to %s\n", "$home");
-			}
-		}
-		else if (strcmp(argv[1], "~") == 0)
-		{
-			if (chdir("/root/") != 0)
-			{
-				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-				fprintf(stderr, "can't cd to %s\n", "ll");
+				fprintf(stderr, "can't cd to %s\n", "HOME");
 			}
 		}
 		else if (strcmp(argv[1], "-") == 0)
 		{
-			fprintf(stderr, "/root\n");
-			if (chdir("/root/") != 0)
+			if (chdir(getenv("OLDPWD")) != 0)
 			{
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-				fprintf(stderr, "can't cd to %s\n", "ll");
+				fprintf(stderr, "can't cd to %s\n", argv[1]);
+			}
+			else
+			{
+				printf("%s\n", getenv("OLDPWD"));
 			}
 		}
-
-		else if (chdir(argv[1]) != 0)
+		else
 		{
-			fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-			fprintf(stderr, "can't cd to %s\n", argv[1]);
+			if (chdir(argv[1]) != 0)
+			{
+				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+				fprintf(stderr, "can't cd to %s\n", argv[1]);
+			}
 		}
 	}
 	else
