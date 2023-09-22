@@ -52,6 +52,7 @@ void execmd(char **argv, char **env, char *linestr)
 	else
 		perror("./shell");
 }
+
 /**
  * is_buildin_command - check if command is buildin or not
  * @argv: argument value
@@ -63,10 +64,14 @@ int is_buildin_command(char **argv, char *linestr)
 {
 	int numOFbuildin, i;
 	char *buildin_command[] = {
-		"exit"
+		"exit",
+		"cd",
+		"help"
 	};
 	int (*buildin_fun[]) (char **, char *) = {
-		&exit_fun
+		&exit_fun,
+		&cd_fun,
+		&help_fun
 	};
 	numOFbuildin = sizeof(buildin_command) / sizeof(char *);
 	for (i = 0 ; i < numOFbuildin ; i++)
@@ -79,3 +84,4 @@ int is_buildin_command(char **argv, char *linestr)
 	}
 	return (1);
 }
+
