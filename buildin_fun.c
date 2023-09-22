@@ -48,15 +48,34 @@ void cd_fun(char **argv, char *linestr)
 	{
 		if (argv[1] == NULL)
 		{
-			return;
-		}
-		else
-		{
-			if (chdir(argv[1]) != 0)
+			if (chdir("/root/") != 0)
 			{
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-				fprintf(stderr, "can't cd to %s\n", argv[1]);
+				fprintf(stderr, "can't cd to %s\n", "$home");
 			}
+		}
+		else if (strcmp(argv[1], "~") == 0)
+		{
+			if (chdir("/root/") != 0)
+			{
+				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+				fprintf(stderr, "can't cd to %s\n", "ll");
+			}
+		}
+		else if (strcmp(argv[1], "-") == 0)
+		{
+			fprintf(stderr, "/root\n");
+			if (chdir("/root/") != 0)
+			{
+				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+				fprintf(stderr, "can't cd to %s\n", "ll");
+			}
+		}
+
+		else if (chdir(argv[1]) != 0)
+		{
+			fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+			fprintf(stderr, "can't cd to %s\n", argv[1]);
 		}
 	}
 	else
@@ -71,7 +90,7 @@ void cd_fun(char **argv, char *linestr)
  * @linestr: linestr pointer
  *
  * Return: void
-*/
+ */
 void print_env(char **envp, char *linestr)
 {
 	int i;
@@ -79,7 +98,7 @@ void print_env(char **envp, char *linestr)
 	(void)linestr;
 	if (envp)
 	{
-		for (i = 0 ; envp[i] ; i++)
+		for (i = 0; envp[i]; i++)
 		{
 			printf("%s\n", envp[i]);
 		}
