@@ -48,6 +48,7 @@ void cd_fun(char **argv, char *linestr)
 	{
 		if (argv[1] == NULL || strcmp(argv[1], "~") == 0)
 		{
+			setenv("PWD",getenv("HOME"),1);
 			if (chdir(getenv("HOME")) != 0)
 			{
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
@@ -56,14 +57,15 @@ void cd_fun(char **argv, char *linestr)
 		}
 		else if (strcmp(argv[1], "-") == 0)
 		{
-			if (chdir(getenv("OLDPWD")) != 0)
+			setenv("PWD",getenv("HOME"),1);
+			if (chdir(getenv("HOME")) != 0)
 			{
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
 				fprintf(stderr, "can't cd to %s\n", argv[1]);
 			}
 			else
 			{
-				printf("%s\n", getenv("OLDPWD"));
+				printf("%s\n", getenv("PWD"));
 			}
 		}
 		else
