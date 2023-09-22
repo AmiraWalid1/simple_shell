@@ -22,6 +22,9 @@ void signal_handler(int sig);
 int command_num(void);
 int isNumber(char *str);
 int exit_fun(char **argv, char *linestr);
+int help_fun(char **argv, char *linestr);
+int cd_fun(char **argv, char *linestr);
+int numOFbuildin(char **built_in_string);
 int is_buildin_command(char **argv, char *linestr);
 
 #endif /*SHELL_H*/
