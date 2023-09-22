@@ -17,7 +17,7 @@ void execmd(char **argv, char **env, char *linestr)
 	if (argv)
 	{
 		command = argv[0];
-		if (is_buildin_command(argv, linestr) == 0)
+		if (is_buildin_command(argv, env, linestr) == 0)
 			return;
 		actual_pathname = get_location(command);
 		if (actual_pathname)
@@ -56,29 +56,33 @@ void execmd(char **argv, char **env, char *linestr)
 /**
  * is_buildin_command - check if command is buildin or not
  * @argv: argument value
+ * @env: environment
  * @linestr: linestr pointer
  *
  * Return: (0)sucess | (1)failed
  */
-int is_buildin_command(char **argv, char *linestr)
+int is_buildin_command(char **argv, char **env, char *linestr)
 {
 	int numOFbuildin, i;
 	char *buildin_command[] = {
 		"exit",
 		"cd",
-		"help"
+		"env"
 	};
-	int (*buildin_fun[]) (char **, char *) = {
+	void (*buildin_fun[]) (char **, char *) = {
 		&exit_fun,
 		&cd_fun,
-		&help_fun
+		&print_env
 	};
 	numOFbuildin = sizeof(buildin_command) / sizeof(char *);
 	for (i = 0 ; i < numOFbuildin ; i++)
 	{
 		if (strcmp(argv[0], buildin_command[i]) == 0)
 		{
-			(*buildin_fun[i])(argv, linestr);
+			if (i == 2)
+				(*buildin_fun[i])(env, linestr);
+			else
+				(*buildin_fun[i])(argv, linestr);
 			return (0);
 		}
 	}

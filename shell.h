@@ -17,15 +17,13 @@ char **Split_line(char *linestr);
 void execmd(char **argv, char **env, char *linestr);
 char *get_location(char *command);
 char *_strdup(char *src);
-void print_env(char **envp);
 void signal_handler(int sig);
 int command_num(void);
 int isNumber(char *str);
-int exit_fun(char **argv, char *linestr);
-int help_fun(char **argv, char *linestr);
-int cd_fun(char **argv, char *linestr);
-int numOFbuildin(char **built_in_string);
-int is_buildin_command(char **argv, char *linestr);
+void exit_fun(char **argv, char *linestr);
+void cd_fun(char **argv, char *linestr);
+void print_env(char **envp, char *linestr);
+int is_buildin_command(char **argv, char **env, char *linestr);
 
 #endif /*SHELL_H*/
 

@@ -47,35 +47,11 @@ int main(int ac, char **av, char **env)
 			continue;
 		}
 		argv = Split_line(linestr);
-		if (strcmp(argv[0], "env") == 0)
-			print_env(env);
-		else
-			execmd(argv, env, linestr);
+		execmd(argv, env, linestr);
 		free_grid(argv);
 	}
 	return (0);
 }
-
-
-
-
-/**
- * increase_command_num - increase num command 1
- *
- * Return: num of running command
-*/
-int increase_command_num(void)
-{
-	static int command_num;
-
-	command_num++;
-	return (command_num);
-}
-
-
-
-
-
 
 /**
  * command_num - return num of command running

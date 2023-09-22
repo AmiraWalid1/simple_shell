@@ -4,9 +4,9 @@
  * @argv: argument value
  * @linestr: linestr pointer
  *
- * Return: (1)failed | exit if success
+ * Return: void
  */
-int exit_fun(char **argv, char *linestr)
+void exit_fun(char **argv, char *linestr)
 {
 	int ex_arg = EXIT_SUCCESS;
 
@@ -22,79 +22,66 @@ int exit_fun(char **argv, char *linestr)
 			{
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
 				fprintf(stderr, "Illegal number: %s\n", argv[1]);
-				return (1);
+				return;
 			}
 		}
 		free(linestr);
 		free_grid(argv);
 		exit(ex_arg);
 	}
-	return (1);
+	else
+	{
+		perror("./hsh");
+	}
 }
 
 /**
  * cd_fun - handle cd function
  * @argv: argument value
  * @linestr: linestr pointer
- * Return: (1)failed | exit if success
+ * Return: void
  */
-int cd_fun(char **argv, char *linestr)
+void cd_fun(char **argv, char *linestr)
 {
+	(void)linestr;
 	if (argv)
 	{
 		if (argv[1] == NULL)
 		{
-			fprintf(stderr, "./hsh: expected argument to \"cd\"\n");
+			return;
 		}
 		else
 		{
 			if (chdir(argv[1]) != 0)
 			{
-				perror("./hsh");
+				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+				fprintf(stderr, "can't cd to %s\n", argv[1]);
 			}
 		}
 	}
-	return (1);
+	else
+	{
+		perror("./hsh");
+	}
 }
 
 /**
- * numOFbuildin - number of buildin
- * @built_in_string: argument value
- *
- * Return: (0)sucess | (1)failed
- */
-int numOFbuildin(char **built_in_string)
-{
-	return (sizeof(built_in_string) / sizeof(char *));
-}
-
-/**
- * help_fun - handle cd function
- * @argv: argument value
+ * print_env - print enironment
+ * @envp: environment
  * @linestr: linestr pointer
  *
- * Return: (1)failed | exit if success
- */
-int help_fun(char **argv, char *linestr)
+ * Return: void
+*/
+void print_env(char **envp, char *linestr)
 {
 	int i;
-	char *buildin_command[] = {
-		"exit",
-		"cd",
-		"help"
-	};
 
-	printf("These shell commands are defined internally.\n");
-	printf("Type `help' to see this list.\n");
-	printf("Type program names and arguments, and hit enter.\n");
-	printf("The following are built in:\n");
-
-	for (i = 0; i < numOFbuildin(buildin_command); i++)
+	(void)linestr;
+	if (envp)
 	{
-		printf(" %s\n", buildin_command[i]);
+		for (i = 0 ; envp[i] ; i++)
+		{
+			printf("%s\n", envp[i]);
+		}
 	}
-
-	printf("Use the man command for information on other programs.\n");
-	return (1);
 }
-
