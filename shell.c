@@ -48,7 +48,7 @@ int main(int ac, char **av, char **env)
 		argv = Split_line(linestr);
 		if (strcmp(argv[0], "exit") == 0)
 		{
-			if (argv[1] != NULL)
+			if (argv[1] != NULL && isNumber(argv[1]))
 				ex_arg = atoi(argv[1]);
 			free(linestr);
 			free_grid(argv);
@@ -76,5 +76,26 @@ int increase_command_num(void)
 
 	command_num++;
 	return (command_num);
+}
+
+
+
+/**
+ * isNumber - check str is number or not
+ * @str: string
+ *
+ * Return: (0) true | (1) false
+*/
+int isNumber(char *str)
+{
+	while (*str != '\0')
+	{
+		if (!isdigit(*str))
+		{
+			return (0);
+		}
+		str++;
+	}
+	return (1);
 }
 
