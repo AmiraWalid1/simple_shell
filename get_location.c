@@ -47,27 +47,4 @@ char *get_location(char *command)
 	free(path_copy);
 	return (NULL);
 }
-/**
- * _strdup - function returns a pointer to a new string
- * which is a duplicate of the string src.
- * @src: string
- *
- * Return: pointer to string
-*/
-char *_strdup(char *src)
-{
-	char *dst;
-
-	if (src == NULL)
-	{
-		return (NULL);
-	}
-	dst = malloc(strlen(src) + 1);
-	if (dst == NULL)
-	{
-		perror("Memory allocated error"), exit(1);
-	}
-	strcpy(dst, src);
-	return (dst);
-}
 

@@ -1,4 +1,5 @@
 #include "shell.h"
+static int num_command;
 /**
  * signal_handler - handle signal
  * @sig: signal number
@@ -24,7 +25,7 @@ int main(int ac, char **av, char **env)
 	char prompat[] = "$ ";
 	char *linestr = NULL, **argv;
 	size_t n = 0;
-	int num_char_readed, ex_arg = EXIT_SUCCESS, command_num;
+	int num_char_readed;
 
 	(void)ac, (void)av;
 	while (1)
@@ -40,28 +41,21 @@ int main(int ac, char **av, char **env)
 			free(linestr);
 			break;
 		}
-		command_num = increase_command_num();
+		num_command++;
 		if (num_char_readed == 1)
 		{
 			continue;
 		}
 		argv = Split_line(linestr);
-		if (strcmp(argv[0], "exit") == 0)
-		{
-			if (argv[1] != NULL && isNumber(argv[1]))
-				ex_arg = atoi(argv[1]);
-			free(linestr);
-			free_grid(argv);
-			exit(ex_arg);
-		}
 		if (strcmp(argv[0], "env") == 0)
 			print_env(env);
 		else
-			execmd(argv, command_num, env);
+			execmd(argv, env, linestr);
 		free_grid(argv);
 	}
 	return (0);
 }
+
 
 
 
@@ -80,22 +74,16 @@ int increase_command_num(void)
 
 
 
+
+
+
 /**
- * isNumber - check str is number or not
- * @str: string
+ * command_num - return num of command running
  *
- * Return: (0) true | (1) false
+ * Return: return num of command running
 */
-int isNumber(char *str)
+int command_num(void)
 {
-	while (*str != '\0')
-	{
-		if (!isdigit(*str))
-		{
-			return (0);
-		}
-		str++;
-	}
-	return (1);
+	return (num_command);
 }
 
