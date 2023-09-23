@@ -63,6 +63,10 @@ int command_num(void)
 {
 	return (num_command);
 }
+/**
+ * get_status - get previous status
+ * Return: previous status
+*/
 int get_status(void)
 {
 	return (status);
