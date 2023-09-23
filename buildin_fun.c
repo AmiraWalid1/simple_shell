@@ -43,6 +43,8 @@ void exit_fun(char **argv, char *linestr)
  */
 void cd_fun(char **argv, char *linestr)
 {
+	char buf[1024];
+
 	(void)linestr;
 	if (argv)
 	{
@@ -75,6 +77,8 @@ void cd_fun(char **argv, char *linestr)
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
 				fprintf(stderr, "can't cd to %s\n", argv[1]);
 			}
+			getcwd(buf, 1024);
+			setenv("PWD", buf, 1);
 		}
 	}
 	else
