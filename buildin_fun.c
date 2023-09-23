@@ -25,6 +25,8 @@ void exit_fun(char **argv, char *linestr)
 				ex_arg = 2;
 			}
 		}
+		else
+			ex_arg = get_status();
 		free(linestr);
 		free_grid(argv);
 		exit(ex_arg);

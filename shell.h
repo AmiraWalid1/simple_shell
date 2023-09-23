@@ -14,10 +14,11 @@
 
 /*execute command*/
 char **Split_line(char *linestr);
-void execmd(char **argv, char **env, char *linestr);
+int execmd(char **argv, char **env, char *linestr);
 char *get_location(char *command);
 void signal_handler(int sig);
 int command_num(void);
+int get_status(void);
 
 /*free allocated memory*/
 void free_grid(char **grid);

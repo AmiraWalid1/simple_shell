@@ -1,5 +1,5 @@
 #include "shell.h"
-static int num_command;
+static int num_command, status;
 /**
  * signal_handler - handle signal
  * @sig: signal number
@@ -47,9 +47,10 @@ int main(int ac, char **av, char **env)
 			continue;
 		}
 		argv = Split_line(linestr);
-		execmd(argv, env, linestr);
+		status = execmd(argv, env, linestr);
 		free_grid(argv);
 	}
+	exit(status);
 	return (0);
 }
 
@@ -61,5 +62,9 @@ int main(int ac, char **av, char **env)
 int command_num(void)
 {
 	return (num_command);
+}
+int get_status(void)
+{
+	return (status);
 }
 

@@ -5,11 +5,11 @@
  * @env: environment
  * @linestr: line string
  *
- * Return: void
+ * Return: (0)success | (127)failed
  */
 
 
-void execmd(char **argv, char **env, char *linestr)
+int execmd(char **argv, char **env, char *linestr)
 {
 	char *command = NULL, *actual_pathname = NULL;
 	pid_t id;
@@ -18,17 +18,14 @@ void execmd(char **argv, char **env, char *linestr)
 	{
 		command = argv[0];
 		if (is_buildin_command(argv, env, linestr) == 0)
-			return;
+			return (0);
 		actual_pathname = get_location(command);
 		if (actual_pathname)
 		{
 			id = fork();
 			if (id == 0)
 			{
-				if (execve(actual_pathname, argv, env) == -1)
-				{
-					perror("./shell");
-				}
+				execve(actual_pathname, argv, env);
 			}
 			else if (id < 0)
 			{
@@ -47,10 +44,17 @@ void execmd(char **argv, char **env, char *linestr)
 			}
 		}
 		else
+		{
 			fprintf(stderr, "./hsh: %d: %s: not found\n", command_num(), command);
+			return (127);
+		}	
 	}
 	else
+	{
 		perror("./shell");
+		return (127);
+	}	
+	return (0);
 }
 
 /**
