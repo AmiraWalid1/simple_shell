@@ -24,6 +24,6 @@ void exit_fun(char **argv, char *linestr);
 void cd_fun(char **argv, char *linestr);
 void print_env(char **envp, char *linestr);
 int is_buildin_command(char **argv, char **env, char *linestr);
-
+int is_spaces(char *str);
 #endif /*SHELL_H*/
 

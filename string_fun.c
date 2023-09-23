@@ -41,3 +41,21 @@ int isNumber(char *str)
 	}
 	return (1);
 }
+/**
+ * is_spaces - check if string is only spaces
+ * @str: string
+ * Return: (1) success | (0) failed
+*/
+int is_spaces(char *str)
+{
+	int i, sz = strlen(str);
+
+	for (i = 0 ; i < sz - 1 ; i++)
+	{
+		if (str[i] != ' ')
+		{
+			return (0);
+		}
+	}
+	return (1);
+}

@@ -42,7 +42,7 @@ int main(int ac, char **av, char **env)
 			break;
 		}
 		num_command++;
-		if (num_char_readed == 1)
+		if (num_char_readed == 1 || is_spaces(linestr))
 		{
 			continue;
 		}
