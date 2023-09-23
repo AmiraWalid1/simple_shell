@@ -24,9 +24,7 @@ int execmd(char **argv, char **env, char *linestr)
 		{
 			id = fork();
 			if (id == 0)
-			{
 				execve(actual_pathname, argv, env);
-			}
 			else if (id < 0)
 			{
 				free_grid(argv);
@@ -38,22 +36,20 @@ int execmd(char **argv, char **env, char *linestr)
 			{
 				wait(NULL);
 				if (command != actual_pathname)
-				{
 					free(actual_pathname);
-				}
 			}
 		}
 		else
 		{
 			fprintf(stderr, "./hsh: %d: %s: not found\n", command_num(), command);
 			return (127);
-		}	
+		}
 	}
 	else
 	{
 		perror("./shell");
 		return (127);
-	}	
+	}
 	return (0);
 }
 
