@@ -69,7 +69,7 @@ void cd_fun(char **argv, char *linestr)
 			}
 			else
 			{
-				setenv("PWD", getenv("HOME"), 1);
+				setenv("PWD", getenv("OLDPWD"), 1);
 				printf("%s\n", getenv("PWD"));
 			}
 		}
