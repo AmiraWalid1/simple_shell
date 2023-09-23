@@ -43,48 +43,18 @@ void exit_fun(char **argv, char *linestr)
  */
 void cd_fun(char **argv, char *linestr)
 {
-	char buf[1024], *oldpwd;
+	char buf[1024];
 
 	(void)linestr;
 	if (argv)
 	{
 		if (argv[1] == NULL || strcmp(argv[1], "~") == 0)
 		{
-			if (getenv("HOME") != NULL)
-			{
-				if (chdir(getenv("HOME")) != 0)
-				{
-					fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-					fprintf(stderr, "can't cd to %s\n", "HOME");
-				}
-				else
-				{
-					setenv("OLDPWD", getenv("PWD"), 1);
-					setenv("PWD", getenv("HOME"), 1);
-				}
-			}
+			cd_home(argv);
 		}
 		else if (strcmp(argv[1], "-") == 0)
 		{
-			if (getenv("OLDPWD") != NULL)
-			{
-				if (chdir(getenv("OLDPWD")) != 0)
-				{
-					fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-					fprintf(stderr, "can't cd to %s\n", argv[1]);
-				}
-				else
-				{
-					oldpwd = getenv("OLDPWD");
-					setenv("OLDPWD", getenv("PWD"), 1);
-					setenv("PWD", oldpwd, 1);
-					printf("%s\n", getenv("PWD"));
-				}
-			}
-			else
-			{
-				printf("%s\n", getenv("PWD"));
-			}
+			cd_oldpwd(argv);
 		}
 		else
 		{
@@ -103,6 +73,56 @@ void cd_fun(char **argv, char *linestr)
 	}
 	else
 		perror("./hsh");
+}
+/**
+ * cd_home - cd_home
+ * @argv: argument value
+ * Return: void
+*/
+void cd_home(char **argv)
+{
+	if (getenv("HOME") != NULL)
+	{
+		if (chdir(getenv("HOME")) != 0)
+		{
+			fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+			fprintf(stderr, "can't cd to %s\n", "HOME");
+		}
+		else
+		{
+			setenv("OLDPWD", getenv("PWD"), 1);
+			setenv("PWD", getenv("HOME"), 1);
+		}
+	}
+}
+/**
+ * cd_oldpwd - cd_old pwd
+ * @argv: argument value
+ * Return: void
+*/
+void cd_oldpwd(char **argv)
+{
+	char *oldpwd;
+
+	if (getenv("OLDPWD") != NULL)
+	{
+		if (chdir(getenv("OLDPWD")) != 0)
+		{
+			fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+			fprintf(stderr, "can't cd to %s\n", argv[1]);
+		}
+		else
+		{
+			oldpwd = getenv("OLDPWD");
+			setenv("OLDPWD", getenv("PWD"), 1);
+			setenv("PWD", oldpwd, 1);
+			printf("%s\n", getenv("PWD"));
+		}
+	}
+	else
+	{
+		printf("%s\n", getenv("PWD"));
+	}
 }
 
 /**

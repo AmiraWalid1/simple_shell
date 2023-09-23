@@ -12,18 +12,28 @@
 #include <signal.h>
 #include <ctype.h>
 
-void free_grid(char **grid);
+/*execute command*/
 char **Split_line(char *linestr);
 void execmd(char **argv, char **env, char *linestr);
 char *get_location(char *command);
-char *_strdup(char *src);
 void signal_handler(int sig);
 int command_num(void);
+
+/*free allocated memory*/
+void free_grid(char **grid);
+
+/*string function*/
+char *_strdup(char *src);
 int isNumber(char *str);
+int is_spaces(char *str);
+
+/*buildin command*/
+int is_buildin_command(char **argv, char **env, char *linestr);
 void exit_fun(char **argv, char *linestr);
 void cd_fun(char **argv, char *linestr);
+void cd_home(char **argv);
+void cd_oldpwd(char **argv);
 void print_env(char **envp, char *linestr);
-int is_buildin_command(char **argv, char **env, char *linestr);
-int is_spaces(char *str);
+
 #endif /*SHELL_H*/
 
