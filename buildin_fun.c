@@ -48,7 +48,7 @@ void cd_fun(char **argv, char *linestr)
 	(void)linestr;
 	if (argv)
 	{
-		if (argv[1] == NULL || strcmp(argv[1], "~") == 0)
+		if (argv[1] == NULL || strcmp(argv[1], "~") == 0 && getenv("HOME") != NULL)
 		{
 			if (chdir(getenv("HOME")) != 0)
 			{
