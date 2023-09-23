@@ -43,22 +43,20 @@ void exit_fun(char **argv, char *linestr)
  */
 void cd_fun(char **argv, char *linestr)
 {
-	char buf[1024];
+	char buf[1024], *oldpwd;
 
 	(void)linestr;
 	if (argv)
 	{
 		if (argv[1] == NULL || strcmp(argv[1], "~") == 0)
 		{
-			if (getenv("HOME") != NULL)
+			if (chdir(getenv("HOME")) != 0)
 			{
-				if (chdir(getenv("HOME")) != 0)
-				{
-					fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-					fprintf(stderr, "can't cd to %s\n", "HOME");
-				}
-				setenv("PWD", getenv("HOME"), 1);
+				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+				fprintf(stderr, "can't cd to %s\n", "HOME");
 			}
+			setenv("OLDPWD", getenv("PWD"), 1);
+			setenv("PWD", getenv("HOME"), 1);
 		}
 		else if (strcmp(argv[1], "-") == 0)
 		{
@@ -69,7 +67,9 @@ void cd_fun(char **argv, char *linestr)
 			}
 			else
 			{
-				setenv("PWD", getenv("OLDPWD"), 1);
+				oldpwd = getenv("OLDPWD");
+				setenv("OLDPWD", getenv("PWD"), 1);
+				setenv("PWD", oldpwd, 1);
 				printf("%s\n", getenv("PWD"));
 			}
 		}
@@ -80,6 +80,7 @@ void cd_fun(char **argv, char *linestr)
 				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
 				fprintf(stderr, "can't cd to %s\n", argv[1]);
 			}
+			setenv("OLDPWD", getenv("PWD"), 1);
 			getcwd(buf, 1024);
 			setenv("PWD", buf, 1);
 		}
