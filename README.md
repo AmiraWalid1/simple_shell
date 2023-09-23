@@ -1,23 +1,51 @@
 # simple shell
 
 ## Description
-### This is a simple shell that can execute commands and arguments.
+This is a simple shell that execute commands and builtins similiar to the sh shell.
 
-## Usage
-### To compile, run this command:
+
+## Compilation
 ```
 gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
 ```
-### To run the shell, run this command:
+## Usage
 ```
 ./hsh
 ```
-### To exit the shell, run this command:
+## Commands
+### The shell excecute the command in the PATH variable and following buildin command:
 ```
-exit
+$ env
+$ exit
+$ cd
 ```
-or press Ctrl + D
+
+
+## Testing
+### interactive mode:
+```
+$ ./hsh
+($) /bin/ls
+hsh main.c shell.c
+($)
+($) exit
+$
+```
+### non-interactive mode:
+```
+$ echo "/bin/ls" | ./hsh
+hsh main.c shell.c test_ls_2
+$
+$ cat test_ls_2
+/bin/ls
+/bin/ls
+$
+$ cat test_ls_2 | ./hsh
+hsh main.c shell.c test_ls_2
+hsh main.c shell.c test_ls_2
+$
+```
 
 ## Our Team
-- [Amira Walid](https://github.com/AmiraWalid1/simple_shell)
+- [Amira Walid](https://github.com/AmiraWalid1)
 - [Nourhan Wael](https://github.com/Nourhan-Wael)
