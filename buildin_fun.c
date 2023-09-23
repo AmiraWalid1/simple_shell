@@ -66,17 +66,20 @@ void cd_fun(char **argv, char *linestr)
 		}
 		else if (strcmp(argv[1], "-") == 0)
 		{
-			if (chdir(getenv("OLDPWD")) != 0)
+			if (getenv("OLDPWD") != NULL)
 			{
-				fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
-				fprintf(stderr, "can't cd to %s\n", argv[1]);
-			}
-			else
-			{
-				oldpwd = getenv("OLDPWD");
-				setenv("OLDPWD", getenv("PWD"), 1);
-				setenv("PWD", oldpwd, 1);
-				printf("%s\n", getenv("PWD"));
+				if (chdir(getenv("OLDPWD")) != 0)
+				{
+					fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
+					fprintf(stderr, "can't cd to %s\n", argv[1]);
+				}
+				else
+				{
+					oldpwd = getenv("OLDPWD");
+					setenv("OLDPWD", getenv("PWD"), 1);
+					setenv("PWD", oldpwd, 1);
+					printf("%s\n", getenv("PWD"));
+				}
 			}
 		}
 		else
