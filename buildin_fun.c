@@ -57,8 +57,11 @@ void cd_fun(char **argv, char *linestr)
 					fprintf(stderr, "./hsh: %d: %s: ", command_num(), argv[0]);
 					fprintf(stderr, "can't cd to %s\n", "HOME");
 				}
-				setenv("OLDPWD", getenv("PWD"), 1);
-				setenv("PWD", getenv("HOME"), 1);
+				else
+				{
+					setenv("OLDPWD", getenv("PWD"), 1);
+					setenv("PWD", getenv("HOME"), 1);
+				}
 			}
 		}
 		else if (strcmp(argv[1], "-") == 0)
