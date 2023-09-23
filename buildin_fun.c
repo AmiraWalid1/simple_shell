@@ -81,6 +81,10 @@ void cd_fun(char **argv, char *linestr)
 					printf("%s\n", getenv("PWD"));
 				}
 			}
+			else
+			{
+				printf("%s\n", getenv("PWD"));
+			}
 		}
 		else
 		{
